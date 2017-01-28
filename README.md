@@ -19,7 +19,7 @@ To try it out, use it with provided example file *No more blues.txt*.
 
 The files you put through transposey are text files with chords for a song. This sort of file is used commonly used on the internet.
 The kind of files compatible with transposey starts with the first line which contains the name of the song. This line is skipped, as are blank lines.
-Chords are written in capital letters as such: (C, Db, D, Eb, E, F, F#, G, G#, A, Bb, B). 
+Chords are written in capital letters as such: (C, Db, D, Eb, E, F, F#, G, G#, A, Bb, B). They can have any suffix (e.g: m, m7, dim, Maj7, +5, -9 etc).
 
 If you are familiar with music notation, you might know that a note can be written in different ways depending on the key of the song. For example: Db is also known as C# and G# is often written Ab. The script support multiple variations as input, that should cover all. Since the script is unaware of the key of the song, the transposed note will be correct, although you could consider it using the wrong notation.
 
