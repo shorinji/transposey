@@ -1,19 +1,18 @@
-No more blues - Antônio Carlos Jobim
-
+No more blues - Antonio Carlos Jobim
 
 Dm              Dm7/C           Bm7-5           E7-9
 Em7-5           A7-9            Dm7             Em7-5     A7-9
 Dm      Dm7     Bm7-5   E7      Am 
-BbM7                            Em7-5           A7-9
+BbMaj7                          Em7-5           A7-9
 
 Dm              Dm7/C           Bm7-5           E7-9
 Em7-5           A7-5            Dm              D7
 Gm      Gm7/F   A7/E   A7       Dm              Dm7/C
 Bm7-5   E7-9    A7-9            Dm              Em7       A7+5
 
-DMaj7           EbDim           Em7
-A7                              DDim            DMaj7
-F#m7            FDim            Em7
+DMaj7           Ebdim           Em7
+A7                              Ddim            DMaj7
+F#m7            Fdim            Em7
 E7                              Em7-5           A7-9
 
 DMaj7    Dm7/C  Bm7             E7
