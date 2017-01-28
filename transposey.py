@@ -7,28 +7,38 @@ steps = 5
 # Please adapt for your own needs
 notes = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'F#', 'G', 'G#', 'A', 'Bb', 'B']
 
+# To be able to keep multiple notes on same index value:
+notesHash = {\
+'C':   0, \
+'C#':  1, 'Db':  1, \
+'D':   2, \
+'D#':  3, 'Eb':  3, \
+'E':   4, \
+'F':   5, \
+'F#':  6, 'Gb':  6, \
+'G':   7, \
+'G#':  8, 'Ab':  8, \
+'A':   9, \
+'Bb': 10, \
+'B':  11, 'H':  11 \
+}
+
 def transpose(note):
 	try:
-		noteIdx = notes.index(note)
+		noteIdx = notesHash[note]
 		notesLen = len(notes)
 		newIdx = (noteIdx + steps) % notesLen
 		note = notes[newIdx]
 	except ValueError:
-		print("ERROR invalid note ", note)
+		pass
 	return note
 	
-def isNote(line, pos):
-	if line[pos:pos + 3] in ['Dim', 'Maj']:
-		return False
-
-	char = line[pos]
-
-	return (char >= 'A') and (char <= 'G')
+def isNote(char):
+	return (char >= 'A') and (char <= 'H')
 
 def getfullNote(line, pos):
-	lineLen = len(line)
 	# check sharp or flat
-	if (pos + 1 < lineLen) and line[pos + 1] in ['#', 'b']:
+	if (pos + 1 < len(line)) and line[pos + 1] in ['#', 'b']:
 		endPos = pos + 2
 	else:
 		endPos = pos + 1
@@ -45,7 +55,9 @@ filename = " ".join(sys.argv[1:])
 
 try:
 	f = open(filename)
-	lines = f.readlines()[1:] # skips first line (song title)
+	lines = f.readlines()
+	sys.stdout.write(lines[0])
+	lines = lines[1:]
 	f.close()
 except:
 	sys.stderr.write("File '%s' not found" % filename)
@@ -53,7 +65,7 @@ except:
 
 
 for line in lines:
-	currentPos = 0
+	currentPos = 0 # current position on the input line
 	line = line.strip()
 	lineLen = len(line)
 	
@@ -63,21 +75,21 @@ for line in lines:
 	hasSavedSpaceSkip = False
 
 	while currentPos < lineLen:
-		
-		if isNote(line, currentPos):
+		char = line[currentPos]
+		if isNote(char):
 			note = getfullNote(line, currentPos)
 			oldNoteLen = len(note)
 			char = transpose(note)
 			newNoteLen = len(char)
 			currentPos += len(note)
 
+			# to keep indentation straight
 			if newNoteLen < oldNoteLen:
 				hasSavedSpace = True
 			elif oldNoteLen < newNoteLen:
 				hasSavedSpaceSkip = True
 
 		else:
-			char = line[currentPos]
 			if char == ' ':
 				if hasSavedSpace:
 					char = '  '
@@ -85,10 +97,9 @@ for line in lines:
 				elif hasSavedSpaceSkip:
 					char = ''
 					hasSavedSpaceSkip = False
-
 			currentPos += 1
 
 		sys.stdout.write(char)
-	print()
+	sys.stdout.write("\n")
 
 sys.stdout.flush()	
