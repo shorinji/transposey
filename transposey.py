@@ -27,7 +27,7 @@ def isNote(line, pos):
 
 def getfullNote(line, pos):
 	lineLen = len(line)
-	# check raised or flattened
+	# check sharp or flat
 	if (pos + 1 < lineLen) and line[pos + 1] in ['#', 'b']:
 		endPos = pos + 2
 	else:
