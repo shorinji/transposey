@@ -27,12 +27,13 @@ def isNote(line, pos):
 
 def getfullNote(line, pos):
 	lineLen = len(line)
+	# check raised or flattened
 	if (pos + 1 < lineLen) and line[pos + 1] in ['#', 'b']:
-		char = line[pos:pos + 2]
-		#print("XXX found (%s)" % char)
+		endPos = pos + 2
 	else:
-		char = line[pos]
-	return char
+		endPos = pos + 1
+
+	return line[pos:endPos]
 
 
 
@@ -44,7 +45,7 @@ filename = " ".join(sys.argv[1:])
 
 try:
 	f = open(filename)
-	lines = f.readlines()[1:]
+	lines = f.readlines()[1:] # skips first line (song title)
 	f.close()
 except:
 	sys.stderr.write("File '%s' not found" % filename)
@@ -52,20 +53,17 @@ except:
 
 
 for line in lines:
-	line = line.strip()
-
-	if len(line) == 0:
-		print()
-		continue
-
 	currentPos = 0
+	line = line.strip()
 	lineLen = len(line)
-	hasSavedSpace = False
+	
+	# Flags used to compensate whitespace when replacing a note of different length.
+	# This way your text file won't get crooked
+	hasSavedSpace = False 
 	hasSavedSpaceSkip = False
 
 	while currentPos < lineLen:
 		
-		#print("\nINPUT '%s'" % char)
 		if isNote(line, currentPos):
 			note = getfullNote(line, currentPos)
 			oldNoteLen = len(note)
@@ -91,7 +89,6 @@ for line in lines:
 			currentPos += 1
 
 		sys.stdout.write(char)
-
-	print("")
+	print()
 
 sys.stdout.flush()	
